@@ -2,7 +2,6 @@ import { component$, Slot } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 
-import "./bootstrap.css";
 import { client } from "./client";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
@@ -26,7 +25,7 @@ export default component$(() => {
   const siteDetails = useSiteData();
 
   return (
-    <div class="lemmy-site" id="app">
+    <div class="lemmy-site bg-gray-50" id="app">
       <div class="shadow-sm">
         <nav
           class="navbar navbar-expand-md navbar-light p-0 px-3 container-lg"
@@ -50,7 +49,18 @@ export default component$(() => {
           </div>
         </nav>
       </div>
-      <Slot />
+      <div class="container mx-auto flex gap-2">
+        <main class="w-3/4">
+          <Slot />
+        </main>
+        <div class="w-1/4">
+          <details open>
+            <summary>{siteDetails.value.site_view.site.name}</summary>
+            <img class="w-full" src={siteDetails.value.site_view.site.banner} />
+            <p>{siteDetails.value.site_view.site.sidebar}</p>
+          </details>
+        </div>
+      </div>
     </div>
   );
 });
