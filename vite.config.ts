@@ -6,18 +6,10 @@ import { replaceCodePlugin } from 'vite-plugin-replace'
 
 export default defineConfig(() => {
   return {
-    plugins: [qwikCity(), qwikVite(), tsconfigPaths(), replaceCodePlugin({
-      replacements: [
-        {
-          from: 'const form_data_1 = __importDefault(require("form-data"));',
-          to: ""
-        },
-        {
-          from: "form_data_1.default",
-          to: "FormData"
-        }
-      ]
-    })],
+    plugins: [qwikCity(), qwikVite(), tsconfigPaths()],
+    define: {
+      "window.FormData": "FormData"
+    },
     preview: {
       headers: {
         "Cache-Control": "public, max-age=600",
