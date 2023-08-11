@@ -26,6 +26,7 @@
     "@builder.io/qwik-city": "^1.2.6",
     "@types/eslint": "8.40.2",
     "@types/node": "^20.4.0",
+    "@types/sanitize-html": "^2.9.0",
     "@typescript-eslint/eslint-plugin": "5.61.0",
     "@typescript-eslint/parser": "5.61.0",
     "autoprefixer": "^10.4.14",
@@ -39,11 +40,11 @@
     "undici": "5.22.1",
     "vercel": "^29.1.1",
     "vite": "4.4.0",
-    "vite-plugin-replace": "^0.1.1",
     "vite-tsconfig-paths": "4.2.0"
   },
   "dependencies": {
     "bootstrap": "^5.3.1",
-    "lemmy-js-client": "0.19.0-rc.2"
+    "lemmy-js-client": "0.19.0-rc.2",
+    "sanitize-html": "^2.11.0"
   }
 }

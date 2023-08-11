@@ -57,7 +57,9 @@ export default component$(() => {
           <details open>
             <summary>{siteDetails.value.site_view.site.name}</summary>
             <img class="w-full" src={siteDetails.value.site_view.site.banner} />
-            <p>{siteDetails.value.site_view.site.sidebar}</p>
+            <p
+              dangerouslySetInnerHTML={siteDetails.value.site_view.site.sidebar}
+            />
           </details>
         </div>
       </div>
