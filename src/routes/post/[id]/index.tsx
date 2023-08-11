@@ -1,4 +1,4 @@
-import { component$ } from "@builder.io/qwik";
+import { Slot, component$, useSignal, useStore } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { CommentView } from "lemmy-js-client";
 import { client } from "~/routes/client";
@@ -50,6 +50,19 @@ export const useComments = routeLoader$(async ({ params: { id } }) => {
   };
 });
 
+export const Collapsible = component$(() => {
+  const collapsed = useSignal(false);
+
+  return (
+    <>
+      <button onClick$={() => (collapsed.value = !collapsed.value)}>
+        [{collapsed.value ? "+" : "-"}]
+      </button>
+      {!collapsed.value && <Slot />}
+    </>
+  );
+});
+
 interface CommentDisplayProps {
   comments: Map<number, CommentView>;
   childrenMap: Map<number, number[]>;
@@ -65,16 +78,18 @@ export const CommentDisplay = component$<CommentDisplayProps>((props) => {
 
   return (
     <div class="my-4">
-      <div dangerouslySetInnerHTML={comment.comment.content} />
-      <div class="ml-4">
-        {children.map((childId) => (
-          <CommentDisplay
-            comments={props.comments}
-            childrenMap={props.childrenMap}
-            commentId={childId}
-          />
-        ))}
-      </div>
+      <Collapsible>
+        <div dangerouslySetInnerHTML={comment.comment.content} />
+        <div class="ml-4">
+          {children.map((childId) => (
+            <CommentDisplay
+              comments={props.comments}
+              childrenMap={props.childrenMap}
+              commentId={childId}
+            />
+          ))}
+        </div>
+      </Collapsible>
     </div>
   );
 });
