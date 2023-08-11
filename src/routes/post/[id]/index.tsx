@@ -1,4 +1,4 @@
-import { Slot, component$, useSignal, useStore } from "@builder.io/qwik";
+import { Slot, component$, useSignal } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { CommentView } from "lemmy-js-client";
 import { client } from "~/routes/client";
