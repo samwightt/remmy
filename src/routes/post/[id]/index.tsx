@@ -2,11 +2,17 @@ import { component$ } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import { CommentView } from "lemmy-js-client";
 import { client } from "~/routes/client";
+import { micromark } from "micromark";
+import sanitize from "sanitize-html";
 
 export const usePost = routeLoader$(async ({ params: { id } }) => {
   const post = await client.getPost({
     id: id as unknown as number,
   });
+
+  if (post.post_view.post.body) {
+    post.post_view.post.body = sanitize(micromark(post.post_view.post.body));
+  }
 
   return post;
 });
@@ -31,6 +37,10 @@ export const useComments = routeLoader$(async ({ params: { id } }) => {
     childrenIds.get(parent)?.push(comment.comment.id);
     commentMap.set(comment.comment.id, {
       ...comment,
+      comment: {
+        ...comment.comment,
+        content: sanitize(micromark(comment.comment.content)),
+      },
     });
   }
 

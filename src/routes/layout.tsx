@@ -3,6 +3,8 @@ import { routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
 
 import { client } from "./client";
+import { micromark } from "micromark";
+import sanitize from "sanitize-html";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -17,6 +19,12 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 
 export const useSiteData = routeLoader$(async () => {
   const siteDetails = await client.getSite();
+
+  if (siteDetails.site_view.site.sidebar) {
+    siteDetails.site_view.site.sidebar = sanitize(
+      micromark(siteDetails.site_view.site.sidebar)
+    );
+  }
 
   return siteDetails;
 });
