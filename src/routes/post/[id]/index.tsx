@@ -4,6 +4,7 @@ import { CommentView } from "lemmy-js-client";
 import { client } from "~/routes/client";
 import { micromark } from "micromark";
 import sanitize from "sanitize-html";
+import { Post } from "~/components/posts/Post";
 
 export const usePost = routeLoader$(async ({ params: { id } }) => {
   const post = await client.getPost({
@@ -104,7 +105,7 @@ export default component$(() => {
 
   return (
     <div>
-      <h1>{post.name}</h1>
+      <Post postView={postData.value.post_view} />
       {post.body && <div dangerouslySetInnerHTML={post.body} />}
       {rootChildren.map((comment) => (
         <CommentDisplay
