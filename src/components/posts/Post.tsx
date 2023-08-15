@@ -1,4 +1,4 @@
-import { Slot, component$ } from "@builder.io/qwik";
+import { component$ } from "@builder.io/qwik";
 import { Community, Person, PostView } from "lemmy-js-client";
 import { AuthorBadge } from "./AuthorBadge";
 import { CommunityBadge } from "./CommunityBadge";
@@ -31,9 +31,10 @@ export const PostTitle = component$(
 export const PostBy = component$(
   (props: { person: Person; community: Community }) => {
     return (
-      <p class="flex items-center gap-1 whitespace-normal">
+      <p class="flex items-center gap-1 whitespace-normal text-gray-700">
         <AuthorBadge person={props.person} />
-        <span> to </span> <CommunityBadge community={props.community} />
+        <span class="text-gray-700"> to </span>{" "}
+        <CommunityBadge community={props.community} />
       </p>
     );
   }
@@ -53,8 +54,8 @@ export interface PostProps {
 
 export const Post = component$<PostProps>(({ postView }) => {
   return (
-    <article class="my-4 flex flex-row gap-2">
-      <div class="flex flex-row gap-2 items-center h-min mt-1">
+    <article class="my-6 flex flex-row gap-2">
+      <div class="flex flex-row gap-2 items-center h-min mt-2">
         <Score score={postView.counts.score} />
         <Thumbnail post={postView.post} />
       </div>

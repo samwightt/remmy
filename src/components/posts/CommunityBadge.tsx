@@ -8,7 +8,10 @@ export const CommunityBadge = component$(
     const username = getUsername(community);
 
     return (
-      <a href={`/c/${username}}`} class="inline-flex items-center gap-1">
+      <a
+        href={`/c/${username}}`}
+        class="inline-flex items-center gap-1 font-medium"
+      >
         {community.icon && <BadgeAvatar url={community.icon} />}
         {getDisplayName(community)}
       </a>
