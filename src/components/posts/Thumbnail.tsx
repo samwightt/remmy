@@ -18,7 +18,7 @@ export const ThumbnailLink = component$<ThumbnailProps>(({ post }) => {
 });
 
 export const ThumbnailIcon = component$<ThumbnailProps>(({ post }) => {
-  const classes = "w-full h-16 w-20 rounded-md shadow-sm ";
+  const classes = "h-16 w-20 rounded-md shadow-sm ";
 
   if (post.thumbnail_url) {
     return (
