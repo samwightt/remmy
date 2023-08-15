@@ -4,20 +4,12 @@ import { getUsername, getDisplayName } from "./utils";
 import { BadgeAvatar } from "./BadgeAvatar";
 
 export const AuthorBadge = component$(({ person }: { person: Person }) => {
-  const showUsername = useSignal(false);
   const username = getUsername(person);
 
   return (
-    <a
-      href={`/u/${username}`}
-      class="inline-flex items-center gap-1"
-      onMouseOver$={() => (showUsername.value = true)}
-      onFocus$={() => (showUsername.value = true)}
-      onMouseOut$={() => (showUsername.value = false)}
-      onBlur$={() => (showUsername.value = false)}
-    >
+    <a href={`/u/${username}`} class="inline-flex items-center gap-1">
       {person.avatar && <BadgeAvatar url={person.avatar} />}
-      {showUsername.value ? username : getDisplayName(person)}
+      {getDisplayName(person)}
     </a>
   );
 });

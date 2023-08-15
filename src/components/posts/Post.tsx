@@ -1,7 +1,8 @@
-import { component$ } from "@builder.io/qwik";
+import { Slot, component$ } from "@builder.io/qwik";
 import { Community, Person, PostView } from "lemmy-js-client";
 import { AuthorBadge } from "./AuthorBadge";
 import { CommunityBadge } from "./CommunityBadge";
+import { Thumbnail } from "./Thumbnail";
 
 export const PostTitle = component$(
   ({ postView: { post } }: { postView: PostView }) => {
@@ -40,7 +41,7 @@ export const PostBy = component$(
 
 export const Score = component$(({ score }: { score: number }) => {
   return (
-    <p class="text-center text-gray-500 font-medium">
+    <p class="text-center text-gray-500 font-medium w-12 text-sm">
       {score > 1000 ? `${(score / 1000).toFixed(2)}k` : score}
     </p>
   );
@@ -52,11 +53,12 @@ export interface PostProps {
 
 export const Post = component$<PostProps>(({ postView }) => {
   return (
-    <article class="my-4 gap-3 grid grid-cols-12 items-center justify-center">
-      <div>
+    <article class="my-4 flex flex-row gap-2">
+      <div class="flex flex-row gap-2 items-center h-min mt-1">
         <Score score={postView.counts.score} />
+        <Thumbnail post={postView.post} />
       </div>
-      <div class="col-span-11">
+      <div>
         <div class="flex space-x-2 items-center">
           <PostTitle postView={postView} />
         </div>
